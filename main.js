@@ -113,7 +113,7 @@ awsDevice
 i2c.address(0x29);
 i2c.writeReg(0xa0, 0x93);
 i2c.address(0x29);
-i2c.writeReg(0xa1, 0x01);
+i2c.writeReg(0xa1, 0x00);
 
 
 var rslt = lcdSerial.init(u);
@@ -186,9 +186,10 @@ function doNothing() {
     var ch0 = i2c.readWordReg(0x14 + 0xa0);
     i2c.address(0x29);
     var ch1 = i2c.readWordReg(0x16 + 0xa0);
-    console.log("Ch 0: " + ch0.toString());
+    var lux = (ch0 * 6.83) / 6024.0
+    console.log("Ch 0: " + ch0.toString() + " / lux: " + lux.toString());
     console.log("Ch 1: " + ch1.toString());
-
+    
     try {
         if (awsDeviceConnected === true) {
             var timeStamp = Math.floor(Date.now() / 1000);
@@ -237,7 +238,7 @@ function doNothing() {
     } catch(err) {
         console.log(err);
     }
-    setTimeout(doNothing, 1000);
+    setTimeout(doNothing, 15000);
 }
 
 
