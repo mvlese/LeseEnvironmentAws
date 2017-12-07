@@ -28,21 +28,8 @@ var sensor = new sensorObj.BME280();
 
 var i2c = new mraa.I2c(0, false);
 
-//var digitalAccelerometer = require('jsupm_h3lis331dl');
-//var lightSensor = require('jsupm_tsl2561');
-//var myLightSensor = new lightSensor.TSL2561();
-
-// Instantiate an H3LIS331DL on I2C bus 0
-//var myDigitalAccelerometer = new digitalAccelerometer.H3LIS331DL(
-//    digitalAccelerometer.H3LIS331DL_I2C_BUS, 
-//    digitalAccelerometer.H3LIS331DL_DEFAULT_I2C_ADDR);
-//var myDigitalAccelerometer = new digitalAccelerometer.H3LIS331DL(0, 0x18);
-
-//myDigitalAccelerometer.init();
-
 var myThingName = 'intel_galileo';
 
-//var sp = require('serialport');
 console.log('MRAA Version: ' + mraa.getVersion()); //print out the mraa version in IoT XDK console
 
 //Intel(R) Edison & Intel(R) Galileo 
@@ -51,14 +38,6 @@ var u = new mraa.Uart(0); //Default
 //Location: Pins 0 (RX) and 1 (TX) on the Arduino shield interface headers or the UART slot on the Grove Starter Kit Base Shield
 var serialPath = u.getDevicePath(); //Default general purpose port "/dev/ttyMFD1" - Intel(R) Edison; "/dev/ttyS0" - Intel(R) Galileo
 console.log(serialPath);
-
-//Name:     “Multi-gadget” or “Firmware Programming” or "Arduino Serial console" or "OTG" port
-//Location: USB-micro connector near center of Arduino board.  - Intel(R) Edison
-//var serialPath = "/dev/ttyGS0"; 
-
-//Name:     UART2
-//Location: USB-micro connector near edge of Arduino board. - Intel(R) Edison
-//var serialPath = "/dev/ttyMFD2";
 
 var awsIot = require('aws-iot-device-sdk');
 
@@ -150,11 +129,6 @@ function doNothing() {
  
     cnt++;
     
-//    baro.update();
-//    var localPressure = baro.getSealevelPressure(247) * 0.000295333727;
-//    console.log("Pressure: " + localPressure.toString().substring(0, 5));
-//    var temperature = baro.getTemperature() * 1.8 + 32.0;
-//    console.log("Temperature: " + temperature.toString().substring(0, 4));
     sensor.update();
     var humidity = sensor.getHumidity();
     var sHumidity = humidity.toFixed(1);
@@ -224,14 +198,6 @@ function doNothing() {
                     sensorValue: ch0,
                 }));
 
-    //        awsDevice.publish('lese/birds/envrionment', JSON.stringify({ 
-    //                timestamp: timeStamp,
-    //                pressure: parseFloat(sPressuremb), 
-    //                temperature: parseFloat(sTemperatureC),
-    //                humidity: parseFloat(sHumidity),
-    //                lux: ch0
-    //            }));
-            
             lcdSerial.setCursor(1, 0);
             lcdSerial.writeStr(ch0.toString() + "    " + cnt.toString() + "   ");
         }
