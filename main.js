@@ -204,7 +204,7 @@ function doNothing() {
     } catch(err) {
         console.log(err);
     }
-    setTimeout(doNothing, 15000);
+    setTimeout(doNothing, 1000);
 }
 
 
