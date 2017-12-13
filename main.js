@@ -28,8 +28,6 @@ var sensor = new sensorObj.BME280();
 
 var i2c = new mraa.I2c(0, false);
 
-var myThingName = 'intel_galileo';
-
 console.log('MRAA Version: ' + mraa.getVersion()); //print out the mraa version in IoT XDK console
 
 //Intel(R) Edison & Intel(R) Galileo 
